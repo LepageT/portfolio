@@ -472,45 +472,45 @@ label {
 }
 
 #competences .services-blocks .item.fronthtml {
-    color: #72f21c;
-    left: 260px;
-    top: 424px;
+    color: #e34f26;
+    left: 0;
+    top: 109px;
 }
 
 #competences .services-blocks .item.frontjs {
-    color: #ff7800;
+    color: #f7df1e;
     left: 260px;
     top: 4px;
 }
 
 #competences .services-blocks .item.frontcss {
-    color: #1ff3d3;
-    left: 0;
-    top: 109px;
+    color: #1572B6;
+    top: 214px;
+    left: 260px;
 }
 
 #competences .services-blocks .item.cplus {
-    color: #aaa6ff;
+    color: #004482;
     top: 319px;
     left: 0;
 }
 
 #competences .services-blocks .item.java {
-    color: #ff6b6b;
+    color: #5382A1;
     top: 109px;
     left: 520px;
 }
 
 #competences .services-blocks .item.mobile {
-    color: #ff6b6b;
+    color: #EF5138;
      top: 319px;
     left: 520px;
 }
 
 #competences .services-blocks .item.csharp {
-    color: #ff6b6b;
-    top: 214px;
+    color: #9C70D8;
     left: 260px;
+    top: 424px;
 }
 
 .animateInRight {
