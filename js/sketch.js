@@ -1,28 +1,19 @@
 var particles = [];
 var bg;
-var count = 35;
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
-    //iPhone 35
-    //iPad 70
-    //Desktop 170
-    if(windowWidth >= 736 && windowWidth <= 768) {
-        count = 70;
-    } else if (windowWidth > 768 ) {
-        count = 170;
+    if (windowWidth > 768) {
+        for (var i = 0; i < 170; i++) {
+            particles.push(new Particle(createVector(random(width), random(height))));
+        }
     }
-    for (var i = 0; i < count; i++) {
-        particles.push(new Particle(createVector(random(width), random(height))));
-    }
+
 }
 
-$(window).on('resize', function(){
+$(window).on('resize', function () {
     particles = [];
-    console.log(count);
     setup();
-    console.log(count);
-    console.log(width);
 });
 
 function draw() {
@@ -41,6 +32,8 @@ var Particle = function (position) {
     this.acceleration = createVector(0, 0.05);
     this.velocity = createVector(random(-0.5, 0.5), random(-0.5, 0.5));
     this.position = position.copy();
+    this.alpha = random(0.0, 1.0);
+    this.fadding = Math.random() < 0.5 ? true : false;
 };
 
 Particle.prototype.run = function () {
@@ -74,7 +67,8 @@ Particle.prototype.intersects = function () {
             if (dir.mag() < 100) {
                 stroke(255, 50);
                 strokeWeight(0.5);
-                line(this.position.x, this.position.y, other.position.x, other.position.y);
+                if (this.alpha > 0.35 && other.alpha > 0.35)
+                    line(this.position.x, this.position.y, other.position.x, other.position.y);
             }
         }
     }
@@ -88,13 +82,29 @@ Particle.prototype.applyForce = function (f) {
 Particle.prototype.display = function () {
     noStroke();
     //fill(255, 200);
-    fill('#31e2c2');
+    var color = 'rgba(49, 226, 194,' + this.alpha + ')';
+    if (this.fadding) {
+        this.alpha -= 0.005;
+        if (this.alpha <= 0.0) {
+            this.alpha = 0.0;
+            this.fadding = !this.fadding;
+        }
+    } else {
+        this.alpha += 0.005;
+        if (this.alpha >= 1.0) {
+            this.alpha = 1.0;
+            this.fadding = !this.fadding;
+        }
+    }
+    //fill('#31e2c2');
+    fill(color);
     ellipse(this.position.x, this.position.y, 4, 4);
     var mPos = createVector(mouseX, mouseY);
     var dir = p5.Vector.sub(this.position, mPos);
     if (dir.mag() < 160) {
         stroke(255, 70);
         strokeWeight(0.5);
-        line(this.position.x, this.position.y, mouseX, mouseY);
+        if (this.alpha > 0.35)
+            line(this.position.x, this.position.y, mouseX, mouseY);
     }
 };
